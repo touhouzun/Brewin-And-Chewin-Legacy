@@ -15,6 +15,7 @@
       "required-after:farmersdelight",
       "after:crafttweaker",
       "after:futuremc",
+      "after:farmers_future_delight",
       "after:da",
       "after:depthsupdate",
       "after:oe",

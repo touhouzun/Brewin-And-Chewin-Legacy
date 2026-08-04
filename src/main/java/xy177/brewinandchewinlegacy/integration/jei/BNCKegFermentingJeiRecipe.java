@@ -134,7 +134,7 @@ public class BNCKegFermentingJeiRecipe implements IRecipeWrapper {
             && !BNCKegFluid.SCARLET_CHEESE.equals(recipe.getResultFluid())) {
             return Collections.emptyList();
         }
-        Item honeycomb = resolveItem("futuremc:honeycomb");
+        Item honeycomb = resolveFirstItem("futuremc:honeycomb", "farmers_future_delight:honeycomb");
         if (honeycomb != null) {
             return Collections.singletonList(new ItemStack(honeycomb));
         }
@@ -281,7 +281,7 @@ public class BNCKegFermentingJeiRecipe implements IRecipeWrapper {
             return Collections.singletonList(new ItemStack(Items.WATER_BUCKET, Math.max(1, amount / 1000)));
         }
         if (BNCKegFluid.HONEY.equals(fluidId)) {
-            Item honeyBottle = resolveItem("futuremc:honey_bottle");
+            Item honeyBottle = resolveFirstItem("futuremc:honey_bottle", "farmers_future_delight:honey_bottle");
             if (honeyBottle != null) {
                 return Collections.singletonList(new ItemStack(honeyBottle, Math.max(1, amount / 250)));
             }
@@ -384,6 +384,16 @@ public class BNCKegFermentingJeiRecipe implements IRecipeWrapper {
             return null;
         }
         return ForgeRegistries.ITEMS.getValue(new ResourceLocation(parts[0], parts[1]));
+    }
+
+    private static Item resolveFirstItem(String... ids) {
+        for (String id : ids) {
+            Item item = resolveItem(id);
+            if (item != null) {
+                return item;
+            }
+        }
+        return null;
     }
 
     private static String getFluidDisplayName(String fluidId) {

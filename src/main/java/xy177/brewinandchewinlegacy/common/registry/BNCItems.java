@@ -17,6 +17,7 @@ import xy177.brewinandchewinlegacy.common.item.BNCFoodItem;
 import xy177.brewinandchewinlegacy.common.item.BNCTooltipItem;
 
 public final class BNCItems {
+    private static final String FARMERS_FUTURE_DELIGHT = "farmers_future_delight";
     private static final List<Item> ITEMS = new ArrayList<>();
 
     public static Item TANKARD;
@@ -160,21 +161,22 @@ public final class BNCItems {
         PICKLED_PICKLES = register("pickled_pickles", food(4, 0.3F));
         KIPPERS = register("kippers", food(6, 0.5F));
         COCOA_FUDGE = register("cocoa_fudge", food(4, 0.8F).addEffect(effect("minecraft", "speed"), 800, 0, 1.0F));
-        SWEET_BERRIES = Loader.isModLoaded("futuremc") ? null : register("sweet_berries", food(2, 0.1F));
-        GLOW_BERRIES = hasExternalGlowBerries() ? null : register("glow_berries", food(2, 0.1F).addEffect(effect("minecraft", "night_vision"), 200, 0, 1.0F));
+        boolean farmersFutureDelightLoaded = Loader.isModLoaded(FARMERS_FUTURE_DELIGHT);
+        SWEET_BERRIES = Loader.isModLoaded("futuremc") || farmersFutureDelightLoaded ? null : register("sweet_berries", food(2, 0.1F));
+        GLOW_BERRIES = farmersFutureDelightLoaded || hasExternalGlowBerries() ? null : register("glow_berries", food(2, 0.1F).addEffect(effect("minecraft", "night_vision"), 200, 0, 1.0F));
         SWEET_BERRY_JAM = register("sweet_berry_jam", bottleFood(6, 0.4F));
         GLOW_BERRY_MARMALADE = register("glow_berry_marmalade", bottleFood(6, 0.4F));
         APPLE_JELLY = register("apple_jelly", bottleFood(10, 0.6F));
-        CRIMSON_FUNGUS = hasExternalFungus("crimson_fungus") ? null : register("crimson_fungus", plain());
-        WARPED_FUNGUS = hasExternalFungus("warped_fungus") ? null : register("warped_fungus", plain());
-        KELP = hasExternalOceanItem("kelp") ? null : register("kelp", plain());
-        DRIED_KELP = hasExternalOceanItem("dried_kelp") ? null : register("dried_kelp", food(1, 0.3F));
-        SEA_PICKLE = hasExternalOceanItem("sea_pickle") ? null : register("sea_pickle", plain());
-        SEAGRASS = hasExternalSeagrass() ? null : register("seagrass", plain());
-        ADULTERATED_HONEY = Loader.isModLoaded("futuremc") ? null : register("adulterated_honey", bottleFood(6, 0.1F));
-        SYNTHETIC_BEESWAX = Loader.isModLoaded("futuremc") ? null : register("synthetic_beeswax", plain());
-        GLOW_INK_SAC = hasRegisteredItem("oe", "glow_ink_sac") ? null : register("glow_ink_sac", plain());
-        TURTLE_EGG = hasRegisteredItem("oe", "turtle_egg") ? null : register("turtle_egg", plain());
+        CRIMSON_FUNGUS = farmersFutureDelightLoaded || hasExternalFungus("crimson_fungus") ? null : register("crimson_fungus", plain());
+        WARPED_FUNGUS = farmersFutureDelightLoaded || hasExternalFungus("warped_fungus") ? null : register("warped_fungus", plain());
+        KELP = farmersFutureDelightLoaded || hasExternalOceanItem("kelp") ? null : register("kelp", plain());
+        DRIED_KELP = farmersFutureDelightLoaded || hasExternalOceanItem("dried_kelp") ? null : register("dried_kelp", food(1, 0.3F));
+        SEA_PICKLE = farmersFutureDelightLoaded || hasExternalOceanItem("sea_pickle") ? null : register("sea_pickle", plain());
+        SEAGRASS = farmersFutureDelightLoaded || hasExternalSeagrass() ? null : register("seagrass", plain());
+        ADULTERATED_HONEY = Loader.isModLoaded("futuremc") || farmersFutureDelightLoaded ? null : register("adulterated_honey", bottleFood(6, 0.1F));
+        SYNTHETIC_BEESWAX = Loader.isModLoaded("futuremc") || farmersFutureDelightLoaded ? null : register("synthetic_beeswax", plain());
+        GLOW_INK_SAC = farmersFutureDelightLoaded || hasRegisteredItem("oe", "glow_ink_sac") ? null : register("glow_ink_sac", plain());
+        TURTLE_EGG = farmersFutureDelightLoaded || hasRegisteredItem("oe", "turtle_egg") ? null : register("turtle_egg", plain());
         WITHER_ROSE = hasExternalWitherRose() ? null : register("wither_rose", new BNCTooltipItem("brewinandchewinlegacy.tooltip.not_placeable"));
 
         registry.registerAll(ITEMS.toArray(new Item[0]));
@@ -228,19 +230,26 @@ public final class BNCItems {
     }
 
     private static boolean hasExternalFungus(String path) {
-        return hasRegisteredItem("futuremc", path) || hasRegisteredItem("netherized", path) || hasRegisteredItem("nb", path);
+        return hasRegisteredItem("futuremc", path)
+            || hasRegisteredItem("netherized", path)
+            || hasRegisteredItem("nb", path)
+            || hasRegisteredItem(FARMERS_FUTURE_DELIGHT, path);
     }
 
     private static boolean hasExternalGlowBerries() {
-        return hasRegisteredItem("da", "glow_berry") || hasRegisteredItem("depthsupdate", "glow_berries");
+        return hasRegisteredItem("da", "glow_berry")
+            || hasRegisteredItem("depthsupdate", "glow_berries")
+            || hasRegisteredItem(FARMERS_FUTURE_DELIGHT, "glow_berries");
     }
 
     private static boolean hasExternalOceanItem(String path) {
-        return hasRegisteredItem("oe", path);
+        return hasRegisteredItem("oe", path) || hasRegisteredItem(FARMERS_FUTURE_DELIGHT, path);
     }
 
     private static boolean hasExternalSeagrass() {
-        return hasRegisteredItem("oe", "seagrass") || hasRegisteredItem("futuremc", "seagrass");
+        return hasRegisteredItem("oe", "seagrass")
+            || hasRegisteredItem("futuremc", "seagrass")
+            || hasRegisteredItem(FARMERS_FUTURE_DELIGHT, "seagrass");
     }
 
     private static boolean hasExternalWitherRose() {

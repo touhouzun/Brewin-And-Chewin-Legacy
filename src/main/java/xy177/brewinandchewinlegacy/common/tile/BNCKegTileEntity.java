@@ -610,7 +610,7 @@ public class BNCKegTileEntity extends TileEntity implements IInventory, net.mine
             return new ContainerFluid(BNCKegFluid.WATER, 1000, new ItemStack(Items.BUCKET));
         }
 
-        if (isItem(stack, "futuremc:honey_bottle")) {
+        if (isItem(stack, "futuremc:honey_bottle") || isItem(stack, "farmers_future_delight:honey_bottle")) {
             return new ContainerFluid(BNCKegFluid.HONEY, 250, new ItemStack(Items.GLASS_BOTTLE));
         }
         if (BNCItems.ADULTERATED_HONEY != null && stack.getItem() == BNCItems.ADULTERATED_HONEY) {
@@ -670,11 +670,16 @@ public class BNCKegTileEntity extends TileEntity implements IInventory, net.mine
             if (BNCKegFluid.HONEY.equals(fluidId) && hasItem("futuremc:honey_bottle")) {
                 return new ContainerFluid(BNCKegFluid.HONEY, 250, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("futuremc:honey_bottle"))));
             }
+            if (BNCKegFluid.HONEY.equals(fluidId) && hasItem("farmers_future_delight:honey_bottle")) {
+                return new ContainerFluid(BNCKegFluid.HONEY, 250, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation("farmers_future_delight:honey_bottle"))));
+            }
             if (BNCKegFluid.HONEY.equals(fluidId) && BNCItems.ADULTERATED_HONEY != null) {
                 return new ContainerFluid(BNCKegFluid.HONEY, 250, new ItemStack(BNCItems.ADULTERATED_HONEY));
             }
         }
-        if (isItem(stack, "futuremc:honeycomb") || BNCItems.SYNTHETIC_BEESWAX != null && stack.getItem() == BNCItems.SYNTHETIC_BEESWAX) {
+        if (isItem(stack, "futuremc:honeycomb")
+            || isItem(stack, "farmers_future_delight:honeycomb")
+            || BNCItems.SYNTHETIC_BEESWAX != null && stack.getItem() == BNCItems.SYNTHETIC_BEESWAX) {
             if (BNCKegFluid.FLAXEN_CHEESE.equals(fluidId)) {
                 return new ContainerFluid(BNCKegFluid.FLAXEN_CHEESE, 1000, new ItemStack(BNCBlocks.UNRIPE_FLAXEN_CHEESE_WHEEL_ITEM));
             }
@@ -696,9 +701,10 @@ public class BNCKegTileEntity extends TileEntity implements IInventory, net.mine
             return true;
         }
         return isItem(stack, "futuremc:honeycomb")
+            || isItem(stack, "farmers_future_delight:honeycomb")
             || BNCItems.SYNTHETIC_BEESWAX != null && stack.getItem() == BNCItems.SYNTHETIC_BEESWAX
             || stack.getItem() == BNCItems.TANKARD && BNCKegFluid.isDrink(fluidId)
-            || stack.getItem() == Items.GLASS_BOTTLE && (BNCKegFluid.MILK.equals(fluidId) || BNCKegFluid.HONEY.equals(fluidId) && (hasItem("futuremc:honey_bottle") || BNCItems.ADULTERATED_HONEY != null))
+            || stack.getItem() == Items.GLASS_BOTTLE && (BNCKegFluid.MILK.equals(fluidId) || BNCKegFluid.HONEY.equals(fluidId) && (hasItem("futuremc:honey_bottle") || hasItem("farmers_future_delight:honey_bottle") || BNCItems.ADULTERATED_HONEY != null))
             || getGenericContainerExtraction(stack) != null;
     }
 

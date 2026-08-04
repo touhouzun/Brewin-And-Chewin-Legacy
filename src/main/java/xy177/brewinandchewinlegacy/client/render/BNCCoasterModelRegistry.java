@@ -140,7 +140,8 @@ public final class BNCCoasterModelRegistry {
         return "minecraft".equals(namespace)
             || "farmersdelight".equals(namespace)
             || BrewinAndChewinLegacy.MODID.equals(namespace)
-            || "futuremc".equals(namespace);
+            || "futuremc".equals(namespace)
+            || "farmers_future_delight".equals(namespace);
     }
 
     private static String stackKey(ItemStack stack) {

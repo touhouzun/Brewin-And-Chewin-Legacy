@@ -73,22 +73,30 @@ public final class BNCOreDictionary {
         registerExternalOre("bncPizzaTopping", "farmersdelight:onion");
         registerExternalOre("bncPizzaTopping", "farmersdelight:cooked_bacon");
         registerExternalOre("bncHoneyItem", "futuremc:honey_bottle");
+        registerExternalOre("bncHoneyItem", "farmers_future_delight:honey_bottle");
         if (BNCItems.ADULTERATED_HONEY != null) {
             OreDictionary.registerOre("bncHoneyItem", BNCItems.ADULTERATED_HONEY);
         }
         registerExternalOre("bncBeeswax", "futuremc:honeycomb");
+        registerExternalOre("bncBeeswax", "farmers_future_delight:honeycomb");
         if (BNCItems.SYNTHETIC_BEESWAX != null) {
             OreDictionary.registerOre("bncBeeswax", BNCItems.SYNTHETIC_BEESWAX);
         }
         registerOptionalOre("bncKelp", "oe:kelp", BNCItems.KELP == null ? ItemStack.EMPTY : new ItemStack(BNCItems.KELP));
+        registerExternalOre("bncKelp", "farmers_future_delight:kelp");
         registerOptionalOre("bncDriedKelp", "oe:dried_kelp", BNCItems.DRIED_KELP == null ? ItemStack.EMPTY : new ItemStack(BNCItems.DRIED_KELP));
+        registerExternalOre("bncDriedKelp", "farmers_future_delight:dried_kelp");
         registerOptionalOre("bncSeaPickle", "oe:sea_pickle", BNCItems.SEA_PICKLE == null ? ItemStack.EMPTY : new ItemStack(BNCItems.SEA_PICKLE));
-        registerFirstExistingOre("bncSeagrass", "oe:seagrass", "futuremc:seagrass");
+        registerExternalOre("bncSeaPickle", "farmers_future_delight:sea_pickle");
+        registerFirstExistingOre("bncSeagrass", "oe:seagrass", "futuremc:seagrass", "farmers_future_delight:seagrass");
+        registerExternalOre("bncSeagrass", "farmers_future_delight:seagrass");
         if (OreDictionary.getOres("bncSeagrass").isEmpty() && BNCItems.SEAGRASS != null) {
             OreDictionary.registerOre("bncSeagrass", BNCItems.SEAGRASS);
         }
         registerOptionalOre("bncGlowInkSac", "oe:glow_ink_sac", BNCItems.GLOW_INK_SAC == null ? ItemStack.EMPTY : new ItemStack(BNCItems.GLOW_INK_SAC));
+        registerExternalOre("bncGlowInkSac", "farmers_future_delight:glow_ink_sac");
         registerOptionalOre("bncTurtleEgg", "oe:turtle_egg", BNCItems.TURTLE_EGG == null ? ItemStack.EMPTY : new ItemStack(BNCItems.TURTLE_EGG));
+        registerExternalOre("bncTurtleEgg", "farmers_future_delight:turtle_egg");
         registerFirstExistingOre("bncOminousBottle", "deeperdepths:ominous_bottle", "raids:ominous_bottle");
         registerFirstExistingOre("bncWitherRose", "futuremc:wither_rose", "minecraft:wither_rose", "oe:wither_rose", "da:wither_rose");
         registerAnyExternalPathOre("bncWitherRose", "wither_rose");
@@ -98,14 +106,20 @@ public final class BNCOreDictionary {
         registerFirstExistingOre("bncCrimsonFungus",
             "futuremc:crimson_fungus",
             "netherized:crimson_fungus",
-            "nb:crimson_fungus");
+            "nb:crimson_fungus",
+            "farmers_future_delight:crimson_fungus");
+        registerExternalOre("bncCrimsonFungus", "farmers_future_delight:crimson_fungus");
         registerFirstExistingOre("bncWarpedFungus",
             "futuremc:warped_fungus",
             "netherized:warped_fungus",
-            "nb:warped_fungus");
+            "nb:warped_fungus",
+            "farmers_future_delight:warped_fungus");
+        registerExternalOre("bncWarpedFungus", "farmers_future_delight:warped_fungus");
         registerFirstExistingOre("bncShroomlight",
             "netherized:shroomlight",
-            "nb:shroom_light");
+            "nb:shroom_light",
+            "farmers_future_delight:shroomlight");
+        registerExternalOre("bncShroomlight", "farmers_future_delight:shroomlight");
         if (OreDictionary.getOres("bncShroomlight").isEmpty()) {
             OreDictionary.registerOre("bncShroomlight", new ItemStack(Blocks.GLOWSTONE));
         }
@@ -123,44 +137,43 @@ public final class BNCOreDictionary {
         }
         berryCompatibilityRegistered = true;
 
-        registerPreferredOre("bncSweetBerries", BNCItems.SWEET_BERRIES, "futuremc:sweet_berries");
-        registerPreferredOre("bncGlowBerries", BNCItems.GLOW_BERRIES, "da:glow_berry", "depthsupdate:glow_berries");
+        registerPreferredOre("bncSweetBerries", BNCItems.SWEET_BERRIES, "futuremc:sweet_berries", "farmers_future_delight:sweet_berries");
+        registerExternalOre("bncSweetBerries", "farmers_future_delight:sweet_berries");
+        registerPreferredOre("bncGlowBerries", BNCItems.GLOW_BERRIES, "da:glow_berry", "depthsupdate:glow_berries", "farmers_future_delight:glow_berries");
+        registerExternalOre("bncGlowBerries", "farmers_future_delight:glow_berries");
     }
 
     public static Item getSweetBerriesItem() {
-        Item preferred = findItem("futuremc:sweet_berries");
+        Item preferred = findFirstItem("futuremc:sweet_berries", "farmers_future_delight:sweet_berries");
         return preferred == null ? BNCItems.SWEET_BERRIES : preferred;
     }
 
     public static Item getGlowBerriesItem() {
-        Item preferred = findFirstItem("da:glow_berry", "depthsupdate:glow_berries");
+        Item preferred = findFirstItem("da:glow_berry", "depthsupdate:glow_berries", "farmers_future_delight:glow_berries");
         return preferred == null ? BNCItems.GLOW_BERRIES : preferred;
     }
 
     public static boolean hasExternalGlowBerries() {
-        return findFirstItem("da:glow_berry", "depthsupdate:glow_berries") != null;
+        return findFirstItem("da:glow_berry", "depthsupdate:glow_berries", "farmers_future_delight:glow_berries") != null;
     }
 
     public static Item getKelpItem() {
-        Item preferred = findItem("oe:kelp");
+        Item preferred = findFirstItem("oe:kelp", "farmers_future_delight:kelp");
         return preferred == null ? BNCItems.KELP : preferred;
     }
 
     public static Item getSeaPickleItem() {
-        Item preferred = findItem("oe:sea_pickle");
+        Item preferred = findFirstItem("oe:sea_pickle", "farmers_future_delight:sea_pickle");
         return preferred == null ? BNCItems.SEA_PICKLE : preferred;
     }
 
     public static Item getSeagrassItem() {
-        Item preferred = findItem("oe:seagrass");
-        if (preferred == null) {
-            preferred = findItem("futuremc:seagrass");
-        }
+        Item preferred = findFirstItem("oe:seagrass", "futuremc:seagrass", "farmers_future_delight:seagrass");
         return preferred == null ? BNCItems.SEAGRASS : preferred;
     }
 
     public static Item getTurtleEggItem() {
-        Item preferred = findItem("oe:turtle_egg");
+        Item preferred = findFirstItem("oe:turtle_egg", "farmers_future_delight:turtle_egg");
         return preferred == null ? BNCItems.TURTLE_EGG : preferred;
     }
 
@@ -170,9 +183,18 @@ public final class BNCOreDictionary {
 
     private static void registerExternalOre(String oreName, String id) {
         Item item = findItem(id);
-        if (item != null) {
+        if (item != null && !containsItem(oreName, item)) {
             OreDictionary.registerOre(oreName, item);
         }
+    }
+
+    private static boolean containsItem(String oreName, Item item) {
+        for (ItemStack stack : OreDictionary.getOres(oreName)) {
+            if (!stack.isEmpty() && stack.getItem() == item) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void registerPreferredOre(String oreName, Item fallback, String... preferredIds) {
